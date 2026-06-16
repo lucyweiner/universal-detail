@@ -6,43 +6,44 @@
     <meta name="description" content="Universal Detail car detailing in Arizona. Request a quote, call or text, and leave a review.">
     <title>Universal Detail | Car Detailing</title>
     <link rel="preload" href="assets/universal-detail-logo-transparent.png" as="image">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=7">
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="Universal Detail home">
+      <a class="brand" href="index.html" aria-label="Universal Detail home">
         <img src="assets/universal-detail-logo-transparent.png" alt="Universal Detail logo">
-        <span>Universal Detail</span>
+        <img class="brand-wordmark" src="assets/universal-detail-wordmark-header.png" alt="Universal Detail">
       </a>
       <nav aria-label="Main navigation">
-        <a href="#services">Services</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#about">About</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#quote">Quote</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="book.html">Book</a>
+        <a href="quote.html">Quote</a>
+        <a href="contact.html">Contact Us</a>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-media hero-showcase">
-          <img class="hero-logo-badge" src="assets/universal-detail-logo-transparent.png" alt="Universal Detail car detailing emblem">
-        </div>
         <div class="hero-copy">
-          <h1 id="hero-title">Mobile detailing across the East Valley.</h1>
+          <img class="hero-logo-badge" src="assets/universal-detail-logo-transparent.png" alt="Universal Detail car detailing emblem">
+          <h1 id="hero-title">Mobile Car detailing in Chandler and the East Valley</h1>
           <p>
-            Interior and exterior packages, spot-free water, and professional
-            car care brought to your home, workplace, or wherever it is most
-            convenient.
+            Professional interior and exterior car detailing in Chandler and
+            across the East Valley. Spot-free water, ceramic coating, and full
+            mobile detailing brought to your home, workplace, or wherever works
+            best.
           </p>
           <div class="hero-actions">
-            <button class="primary-button reveal-phone" type="button">
+            <a class="primary-button" href="quote.html">
               <i data-lucide="phone-call" aria-hidden="true"></i>
               Get a Quote
-            </button>
-            <a class="secondary-button" href="#reviews">
-              <i data-lucide="star" aria-hidden="true"></i>
-              Reviews
+            </a>
+            <a class="secondary-button" href="tel:+14803649446" aria-label="Call Universal Detail at 480 364 9446">
+              <i data-lucide="phone-call" aria-hidden="true"></i>
+              Call (480) 364-9446
             </a>
           </div>
           <div class="quote-card" id="quickQuote" hidden>
@@ -56,13 +57,55 @@
         </div>
       </section>
 
+      <section class="trust-strip" aria-label="Universal Detail service highlights">
+        <div class="trust-item">
+          <i data-lucide="car" aria-hidden="true"></i>
+          <strong>Interior & Exterior</strong>
+          <span>Packages for quick refreshes and deep details.</span>
+        </div>
+        <div class="trust-item">
+          <i data-lucide="droplets" aria-hidden="true"></i>
+          <strong>Spot-Free Water</strong>
+          <span>Clean rinses and crisp finishes.</span>
+        </div>
+        <div class="trust-item">
+          <i data-lucide="map-pin" aria-hidden="true"></i>
+          <strong>Mobile Service</strong>
+          <span>Servicing Chandler and the East Valley.</span>
+        </div>
+      </section>
+
       <section class="service-band" id="services" aria-labelledby="services-title">
         <div class="section-heading">
-          <p class="eyebrow">Detail Packages</p>
-          <h2 id="services-title">Choose your package.</h2>
+          <h2 id="services-title">Services</h2>
         </div>
         <div class="packages-grid">
+          <article class="package-card">
+            <img class="package-photo" src="assets/gallery/detail-09.jpeg" alt="White SUV being washed with foam">
+            <div class="package-heading">
+              <div>
+                <h3>The Star Package</h3>
+              </div>
+              <strong>$150-$200</strong>
+            </div>
+            <ul class="package-list">
+              <li>Pre-rinse</li>
+              <li>Pre-wash</li>
+              <li>Wash and wax</li>
+              <li>Wheels and tires</li>
+              <li>Mirrors and windows</li>
+              <li>Vacuum seats</li>
+              <li>Vacuum floors</li>
+              <li>Vacuum cargo area</li>
+              <li>Dashboard wipe-down</li>
+              <li>Door jambs wipe-down</li>
+              <li>Door panels wipe-down</li>
+              <li>Center console wipe-down</li>
+            </ul>
+            <a class="package-book-button primary-button" href="book.html">Book Now</a>
+          </article>
           <article class="package-card featured-package">
+            <img class="package-photo" src="assets/gallery/detail-08.jpeg" alt="Red Corvette being washed with foam">
             <div class="package-heading">
               <div>
                 <h3>The Galaxy Package</h3>
@@ -77,38 +120,26 @@
               <li>Wheels and tires</li>
               <li>Spot-free finish</li>
               <li>Mirrors and windows</li>
-              <li>Vacuum seats, floors, and cargo</li>
-              <li>Dashboard, door jambs, door panels, and center console wipe-down</li>
+              <li>Vacuum seats</li>
+              <li>Vacuum floors</li>
+              <li>Vacuum cargo area</li>
+              <li>Dashboard wipe-down</li>
+              <li>Door jambs wipe-down</li>
+              <li>Door panels wipe-down</li>
+              <li>Center console wipe-down</li>
               <li>Shampoo of carpets</li>
               <li>Steam-clean interior</li>
               <li>Leather condition</li>
               <li>2-month ceramic coat</li>
             </ul>
-          </article>
-          <article class="package-card">
-            <div class="package-heading">
-              <div>
-                <h3>The Star Package</h3>
-              </div>
-              <strong>$150-$200</strong>
-            </div>
-            <ul class="package-list">
-              <li>Pre-rinse</li>
-              <li>Pre-wash</li>
-              <li>Wash and wax</li>
-              <li>Wheels and tires</li>
-              <li>Mirrors and windows</li>
-              <li>Vacuum seats, floors, and cargo</li>
-              <li>Dashboard, door jambs, door panels, and center console wipe-down</li>
-            </ul>
+            <a class="package-book-button primary-button" href="book.html">Book Now</a>
           </article>
         </div>
       </section>
 
       <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
         <div class="section-heading">
-          <p class="eyebrow">Recent Details</p>
-          <h2 id="gallery-title">Real cars. Real shine.</h2>
+          <h2 id="gallery-title">Recent Details</h2>
         </div>
         <div class="gallery-grid">
           <figure class="gallery-card">
@@ -141,10 +172,44 @@
         </div>
       </section>
 
+      <section class="instagram-section" aria-labelledby="instagram-title">
+        <div class="section-heading">
+          <h2 id="instagram-title">Latest on Instagram</h2>
+          <p>Follow along for recent details, foam washes, and finished cars from Universal Detail.</p>
+        </div>
+        <div class="instagram-grid">
+          <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/DYGuUaUFY2L/"
+            data-instgrm-version="14">
+            <a href="https://www.instagram.com/p/DYGuUaUFY2L/" target="_blank" rel="noopener">View this post on Instagram</a>
+          </blockquote>
+          <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/DYIb7HQEqmB/"
+            data-instgrm-version="14">
+            <a href="https://www.instagram.com/p/DYIb7HQEqmB/" target="_blank" rel="noopener">View this post on Instagram</a>
+          </blockquote>
+          <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/DX5yeuWk571/"
+            data-instgrm-version="14">
+            <a href="https://www.instagram.com/p/DX5yeuWk571/" target="_blank" rel="noopener">View this post on Instagram</a>
+          </blockquote>
+        </div>
+        <a class="primary-button instagram-follow" href="https://www.instagram.com/universal.detail/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <circle cx="17.2" cy="6.8" r="1.15"></circle>
+          </svg>
+          Follow @universal.detail
+        </a>
+      </section>
+
       <section class="about-section" id="about" aria-labelledby="about-title">
         <div class="about-copy">
-          <p class="eyebrow">About Universal Detail</p>
-          <h2 id="about-title">Professional mobile car care, owned by Noah Sanchez.</h2>
+          <h2 id="about-title">About Universal Detail</h2>
           <p>
             At Universal Detail, we believe every vehicle deserves to look its
             absolute best. Based in Chandler, Arizona, we are a locally owned
@@ -153,11 +218,11 @@
             is most convenient for you.
           </p>
           <p>
-            Founded on a passion for clean vehicles and attention to detail, our
-            mission is simple: deliver exceptional results, honest service, and a
-            hassle-free experience. Whether your car needs a quick refresh, a deep
-            interior cleaning, or a full showroom-style detail, we treat every
-            vehicle as if it were our own.
+            Founded by Noah Sanchez on a passion for clean vehicles and attention
+            to detail, our mission is simple: deliver exceptional results, honest
+            service, and a hassle-free experience. Whether your car needs a quick
+            refresh, a deep interior cleaning, or a full showroom-style detail, we
+            treat every vehicle as if it were our own.
           </p>
           <p>
             We take pride in helping Chandler drivers protect their investment
@@ -167,14 +232,12 @@
           </p>
         </div>
         <div class="about-photo-grid" aria-label="Universal Detail photo highlights">
-          <img src="assets/gallery/detail-02.jpeg" alt="Universal Detail vehicle cleaning result">
-          <img src="assets/gallery/detail-05.jpeg" alt="Universal Detail close-up detail result">
+          <img src="assets/about-owner-car.jpg" alt="Noah Sanchez standing next to a red Corvette after detailing">
         </div>
       </section>
 
       <section class="why-section" aria-labelledby="why-title">
         <div class="section-heading">
-          <p class="eyebrow">Why Choose Us</p>
           <h2 id="why-title">Why Choose Universal Detail?</h2>
         </div>
         <div class="why-grid">
@@ -233,7 +296,6 @@
 
       <section class="reviews-section" id="reviews" aria-labelledby="reviews-title">
         <div class="section-heading">
-          <p class="eyebrow">Customer Reviews</p>
           <h2 id="reviews-title">Leave a review after your detail.</h2>
         </div>
         <div class="reviews-layout">
@@ -257,7 +319,7 @@
               <textarea name="review" rows="5" placeholder="How did your car look after the detail?" required></textarea>
             </label>
             <label>
-              Photo <span class="optional-label">optional</span>
+              Photo
               <input name="photo" type="file" accept="image/*">
             </label>
             <button class="primary-button" type="submit">
@@ -268,14 +330,64 @@
           <div class="reviews-list" id="reviewsList" aria-live="polite"></div>
         </div>
       </section>
+
+      <section class="map-section" aria-labelledby="map-title">
+        <div class="section-heading">
+          <h2 id="map-title">Service Area</h2>
+          <p>Universal Detail services Chandler and the East Valley, Arizona.</p>
+        </div>
+        <div class="map-frame">
+          <iframe
+            title="Map of East Valley, Arizona"
+            src="https://www.google.com/maps?q=East%20Valley%2C%20AZ&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+      <section class="ready-section" aria-labelledby="ready-title">
+        <div>
+          <p class="eyebrow">Ready to Get Started?</p>
+          <h2 id="ready-title">Book a mobile detail in the East Valley.</h2>
+          <p>Call or text Noah with your vehicle type, condition, and preferred package.</p>
+        </div>
+        <div class="ready-actions">
+          <a class="primary-button" href="tel:+14803649446">
+            <i data-lucide="phone-call" aria-hidden="true"></i>
+            Call Now
+          </a>
+          <a class="secondary-button" href="sms:+14803649446">
+            <i data-lucide="message-circle" aria-hidden="true"></i>
+            Text Now
+          </a>
+        </div>
+      </section>
     </main>
 
     <footer>
-      <span>Universal Detail Car Detailing | Owner: Noah Sanchez</span>
-      <a href="tel:+14803649446">(480) 364-9446</a>
+      <span>Universal Detail</span>
+      <div class="footer-links">
+        <a href="tel:+14803649446">(480) 364-9446</a>
+        <a class="social-link" href="https://www.instagram.com/universal.detail/" target="_blank" rel="noopener" aria-label="Universal Detail Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <circle cx="17.2" cy="6.8" r="1.15"></circle>
+          </svg>
+        </a>
+        <a class="social-link" href="https://www.tiktok.com/@universal.detail" target="_blank" rel="noopener" aria-label="Universal Detail TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.7 3v10.45a4.95 4.95 0 1 1-4.95-4.95c.38 0 .75.04 1.1.13v3.25a1.8 1.8 0 1 0 .78 1.48V3h3.07Z"></path>
+            <path d="M14.7 3c.35 2.7 1.88 4.28 4.55 4.45v3.12c-1.75-.04-3.3-.6-4.55-1.62V3Z"></path>
+          </svg>
+        </a>
+      </div>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="script.js?v=5"></script>
+    <script async src="https://www.instagram.com/embed.js"></script>
+    <script src="script.js?v=7"></script>
   </body>
 </html>

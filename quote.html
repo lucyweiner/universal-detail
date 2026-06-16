@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Request a Universal Detail quote by phone or text.">
+    <title>Quote | Universal Detail</title>
+    <link rel="preload" href="assets/universal-detail-logo-transparent.png" as="image">
+    <link rel="stylesheet" href="styles.css?v=7">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Universal Detail home">
+        <img src="assets/universal-detail-logo-transparent.png" alt="Universal Detail logo">
+        <img class="brand-wordmark" src="assets/universal-detail-wordmark-header.png" alt="Universal Detail">
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="book.html">Book</a>
+        <a href="quote.html">Quote</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="contact-section page-section" aria-labelledby="quote-title">
+        <div class="contact-info">
+          <h1 id="quote-title">Get in Touch</h1>
+          <p>Fill out the contact form or call us directly. If you are ready to go, request your quote now.</p>
+          <a class="primary-button" href="tel:+14803649446" aria-label="Call Universal Detail at 480 364 9446">
+            <i data-lucide="phone-call" aria-hidden="true"></i>
+            Call for a Quote
+          </a>
+          <div class="quote-card" id="quickQuote" hidden>
+            <span>Call or text for a quote</span>
+            <strong>(480) 364-9446</strong>
+            <div class="quote-links">
+              <a href="tel:+14803649446">Call now</a>
+              <a href="sms:+14803649446">Text now</a>
+            </div>
+          </div>
+          <div class="contact-details">
+            <p><strong>Call Us:</strong> <a href="tel:+14803649446">(480) 364-9446</a></p>
+            <p><strong>Service Area:</strong> Chandler and the East Valley</p>
+          </div>
+        </div>
+        <form class="contact-form" id="quoteForm">
+          <label>
+            Name*
+            <input name="name" type="text" autocomplete="name" required>
+          </label>
+          <label>
+            Email*
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>
+            Phone*
+            <input name="phone" type="tel" autocomplete="tel" required>
+          </label>
+          <fieldset>
+            <legend>Which service are you interested in?*</legend>
+            <label class="check-option"><input name="service" type="checkbox" value="General Inquiry">General Inquiry</label>
+            <label class="check-option"><input name="service" type="checkbox" value="The Star Package">The Star Package</label>
+            <label class="check-option"><input name="service" type="checkbox" value="The Galaxy Package">The Galaxy Package</label>
+            <label class="check-option"><input name="service" type="checkbox" value="Not Sure Yet">Not Sure Yet</label>
+          </fieldset>
+          <label>
+            Year, Make and Model of Vehicle
+            <textarea name="message" rows="5"></textarea>
+          </label>
+          <button class="primary-button" type="submit">Submit</button>
+          <p class="form-note" id="quoteFormNote" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <span>Universal Detail</span>
+      <div class="footer-links">
+        <a href="tel:+14803649446">(480) 364-9446</a>
+        <a class="social-link" href="https://www.instagram.com/universal.detail/" target="_blank" rel="noopener" aria-label="Universal Detail Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <circle cx="17.2" cy="6.8" r="1.15"></circle>
+          </svg>
+        </a>
+        <a class="social-link" href="https://www.tiktok.com/@universal.detail" target="_blank" rel="noopener" aria-label="Universal Detail TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.7 3v10.45a4.95 4.95 0 1 1-4.95-4.95c.38 0 .75.04 1.1.13v3.25a1.8 1.8 0 1 0 .78 1.48V3h3.07Z"></path>
+            <path d="M14.7 3c.35 2.7 1.88 4.28 4.55 4.45v3.12c-1.75-.04-3.3-.6-4.55-1.62V3Z"></path>
+          </svg>
+        </a>
+      </div>
+    </footer>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="script.js?v=7"></script>
+  </body>
+</html>

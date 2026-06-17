@@ -1081,6 +1081,18 @@ legend {
   align-items: start;
 }
 
+.reviews-section .section-heading {
+  width: 100%;
+  max-width: none;
+}
+
+.reviews-section h1 {
+  width: 100%;
+  max-width: none;
+  font-size: clamp(2.45rem, 4.1vw, 5rem);
+  white-space: nowrap;
+}
+
 .map-section {
   background:
     radial-gradient(circle at 20% 0%, rgba(226, 18, 18, 0.15), transparent 28rem),

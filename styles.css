@@ -609,11 +609,16 @@ h3 {
 }
 
 .why-section .section-heading {
+  width: 100%;
   max-width: none;
 }
 
 .why-section h2 {
+  display: block;
+  width: 100%;
+  max-width: none;
   white-space: nowrap;
+  overflow: visible;
 }
 
 .why-grid {

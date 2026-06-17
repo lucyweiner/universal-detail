@@ -101,11 +101,17 @@ textarea {
 
 nav {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: clamp(0.7rem, 2vw, 1.4rem);
   color: var(--silver);
   font-size: 0.95rem;
   font-weight: 700;
+}
+
+nav a {
+  display: inline-flex;
+  align-items: center;
 }
 
 nav a:hover,

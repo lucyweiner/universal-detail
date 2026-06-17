@@ -1146,6 +1146,24 @@ legend {
     url("assets/gallery/detail-08.jpeg") center / cover;
 }
 
+.instagram-cta-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  margin: 0 clamp(1rem, 6vw, 5.5rem) clamp(2rem, 5vw, 4rem);
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.72), rgba(226, 18, 18, 0.24)),
+    rgba(255, 255, 255, 0.04);
+}
+
+.instagram-cta-section h2 {
+  margin-bottom: 0;
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
+}
+
 .services-quote-section,
 .about-book-section {
   display: grid;
@@ -1404,6 +1422,7 @@ footer {
   .reviews-layout,
   .services-quote-section,
   .about-book-section,
+  .instagram-cta-section,
   .ready-section {
     grid-template-columns: 1fr;
   }

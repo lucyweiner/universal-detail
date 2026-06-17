@@ -6,7 +6,7 @@
     <meta name="description" content="Book a Universal Detail mobile car detailing appointment in Chandler and the East Valley.">
     <title>Book an Appointment | Universal Detail</title>
     <link rel="preload" href="assets/universal-detail-logo-transparent.png" as="image">
-    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=8">
   </head>
   <body>
     <header class="site-header">
@@ -21,65 +21,71 @@
         <a href="reviews.html">Reviews</a>
         <a href="book.html" aria-current="page">Book</a>
         <a href="quote.html">Quote</a>
-        <a href="contact.html">Contact Us</a>
+        <a class="nav-call" href="tel:+14803649446">(480) 364-9446</a>
       </nav>
     </header>
 
-    <main>
+    <main class="booking-page-main">
       <section class="booking-section page-section" aria-labelledby="booking-title">
-        <div class="booking-copy">
-          <p class="eyebrow">Google Calendar Availability</p>
-          <h1 id="booking-title">Book an Appointment</h1>
-          <p>
-            Choose an open 4.5-hour slot. The website checks Universal Detail's
-            Google Calendar behind the scenes, then books the appointment there.
-          </p>
-          <form class="booking-request-form" id="bookingRequestForm" hidden>
-            <h2>Your appointment</h2>
-            <p class="selected-slot" id="selectedSlotText"></p>
+        <div class="booking-card">
+          <div class="booking-copy">
+            <h1 id="booking-title">Choose an appointment time</h1>
+            <p>
+              Pick an available time from the live calendar. If no times are open,
+              send your details and we'll find one.
+            </p>
+          </div>
+
+          <form class="booking-request-form" id="bookingRequestForm">
             <input name="slotStart" type="hidden">
-            <label>
-              Name*
-              <input name="name" type="text" autocomplete="name" required>
-            </label>
-            <label>
-              Phone*
-              <input name="phone" type="tel" autocomplete="tel" required>
-            </label>
-            <label>
-              Email
-              <input name="email" type="email" autocomplete="email">
-            </label>
-            <label>
-              Service
+            <div class="booking-fields">
+              <label>
+                <span>Name</span>
+                <input name="name" type="text" autocomplete="name" placeholder="Name" required>
+              </label>
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" autocomplete="email" placeholder="Email">
+              </label>
+              <label>
+                <span>Package</span>
               <select name="service">
                 <option value="The Star Package">The Star Package</option>
                 <option value="The Galaxy Package">The Galaxy Package</option>
                 <option value="Not Sure Yet">Not Sure Yet</option>
               </select>
+              </label>
+              <label>
+                <span>Phone</span>
+                <input name="phone" type="tel" autocomplete="tel" placeholder="Phone" required>
+              </label>
+            </div>
+
+            <label class="vehicle-details">
+              <span>Vehicle details</span>
+              <textarea name="vehicle" rows="3" placeholder="Year, make, model, and anything we should know"></textarea>
             </label>
-            <label>
-              Vehicle
-              <textarea name="vehicle" rows="3" placeholder="Year, make, model"></textarea>
-            </label>
+
+            <div class="booking-slots-panel">
+              <div class="booking-slots-heading">
+                <div>
+                  <span>Select a date</span>
+                  <p class="form-note" id="slotsStatus" aria-live="polite">Loading availability...</p>
+                </div>
+                <button class="secondary-button" id="refreshSlotsButton" type="button">
+                  <i data-lucide="refresh-cw" aria-hidden="true"></i>
+                  Refresh
+                </button>
+              </div>
+              <div class="slots-list" id="slotsList"></div>
+            </div>
+
             <button class="primary-button" type="submit">
-              <i data-lucide="send" aria-hidden="true"></i>
+              <i data-lucide="calendar-check" aria-hidden="true"></i>
               Book Appointment
             </button>
             <p class="form-note" id="bookingRequestNote" aria-live="polite"></p>
           </form>
-        </div>
-
-        <div class="booking-slots-panel">
-          <div class="booking-slots-heading">
-            <h2>Available Appointment Slots</h2>
-            <button class="secondary-button" id="refreshSlotsButton" type="button">
-              <i data-lucide="refresh-cw" aria-hidden="true"></i>
-              Refresh
-            </button>
-          </div>
-          <p class="form-note" id="slotsStatus" aria-live="polite">Loading availability...</p>
-          <div class="slots-list" id="slotsList"></div>
         </div>
       </section>
     </main>
@@ -104,6 +110,6 @@
       </div>
     </footer>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="script.js?v=7"></script>
+    <script src="script.js?v=8"></script>
   </body>
 </html>

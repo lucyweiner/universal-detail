@@ -80,20 +80,44 @@ const listCalendarEvents = async (calendar, days = 45) => {
   return response.data.items || [];
 };
 
-const parseIcsEvents = (calendarData) =>
-  Object.values(calendarData)
-    .filter((event) => event.type === "VEVENT" && event.start && event.end)
-    .map((event) => ({
-      summary: event.summary || "",
-      start: {
-        dateTime: event.start.toISOString()
-      },
-      end: {
-        dateTime: event.end.toISOString()
-      }
-    }));
+const parseIcsEvents = (calendarData, days = 45) => {
+  const now = new Date();
+  const rangeEnd = addMinutes(now, Number(days) * 24 * 60);
 
-const listPublicFeedEvents = async () => {
+  return Object.values(calendarData)
+    .filter((event) => event.type === "VEVENT" && event.start && event.end)
+    .flatMap((event) => {
+      const eventStart = new Date(event.start);
+      const eventEnd = new Date(event.end);
+      const durationMs = eventEnd.getTime() - eventStart.getTime();
+
+      if (!event.rrule?.between) {
+        return [
+          {
+            summary: event.summary || "",
+            start: {
+              dateTime: eventStart.toISOString()
+            },
+            end: {
+              dateTime: eventEnd.toISOString()
+            }
+          }
+        ];
+      }
+
+      return event.rrule.between(now, rangeEnd, true).map((occurrenceStart) => ({
+        summary: event.summary || "",
+        start: {
+          dateTime: occurrenceStart.toISOString()
+        },
+        end: {
+          dateTime: new Date(occurrenceStart.getTime() + durationMs).toISOString()
+        }
+      }));
+    });
+};
+
+const listPublicFeedEvents = async (days = 45) => {
   const response = await fetch(calendarFeedUrl);
   const text = await response.text();
 
@@ -103,7 +127,7 @@ const listPublicFeedEvents = async () => {
     throw error;
   }
 
-  return parseIcsEvents(ical.sync.parseICS(text));
+  return parseIcsEvents(ical.sync.parseICS(text), days);
 };
 
 const listAvailabilitySourceEvents = async (days = 45) => {

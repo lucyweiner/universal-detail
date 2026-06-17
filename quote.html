@@ -6,7 +6,7 @@
     <meta name="description" content="Request a Universal Detail quote by phone or text.">
     <title>Quote | Universal Detail</title>
     <link rel="preload" href="assets/universal-detail-logo-transparent.png" as="image">
-    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=9">
   </head>
   <body>
     <header class="site-header">
@@ -19,20 +19,20 @@
         <a href="gallery.html">Gallery</a>
         <a href="about.html">About</a>
         <a href="reviews.html">Reviews</a>
-        <a href="book.html">Book</a>
         <a href="quote.html">Quote</a>
-        <a href="contact.html">Contact Us</a>
+        <a href="book.html">Book</a>
+        <a class="nav-call" href="tel:+14803649446">(480) 364-9446</a>
       </nav>
     </header>
 
     <main>
       <section class="contact-section page-section" aria-labelledby="quote-title">
         <div class="contact-info">
-          <h1 id="quote-title">Get in Touch</h1>
-          <p>Fill out the contact form or call us directly. If you are ready to go, request your quote now.</p>
+          <h1 id="quote-title">Get a Quote</h1>
+          <p>Choose your package and vehicle size to see the starting price for your detail.</p>
           <a class="primary-button" href="tel:+14803649446" aria-label="Call Universal Detail at 480 364 9446">
             <i data-lucide="phone-call" aria-hidden="true"></i>
-            Call for a Quote
+            (480) 364-9446
           </a>
           <div class="quote-card" id="quickQuote" hidden>
             <span>Call or text for a quote</span>
@@ -41,10 +41,6 @@
               <a href="tel:+14803649446">Call now</a>
               <a href="sms:+14803649446">Text now</a>
             </div>
-          </div>
-          <div class="contact-details">
-            <p><strong>Call Us:</strong> <a href="tel:+14803649446">(480) 364-9446</a></p>
-            <p><strong>Service Area:</strong> Chandler and the East Valley</p>
           </div>
         </div>
         <form class="contact-form" id="quoteForm">
@@ -60,18 +56,28 @@
             Phone*
             <input name="phone" type="tel" autocomplete="tel" required>
           </label>
-          <fieldset>
-            <legend>Which service are you interested in?*</legend>
-            <label class="check-option"><input name="service" type="checkbox" value="General Inquiry">General Inquiry</label>
-            <label class="check-option"><input name="service" type="checkbox" value="The Star Package">The Star Package</label>
-            <label class="check-option"><input name="service" type="checkbox" value="The Galaxy Package">The Galaxy Package</label>
-            <label class="check-option"><input name="service" type="checkbox" value="Not Sure Yet">Not Sure Yet</label>
-          </fieldset>
           <label>
-            Year, Make and Model of Vehicle
-            <textarea name="message" rows="5"></textarea>
+            Service*
+            <select name="service" required>
+              <option value="">Select a service</option>
+              <option value="star">Star Package</option>
+              <option value="galaxy">Galaxy Package</option>
+            </select>
           </label>
-          <button class="primary-button" type="submit">Submit</button>
+          <label>
+            Vehicle Size*
+            <select name="vehicleType" required>
+              <option value="">Select a vehicle type</option>
+              <option value="car">Car/Sedan</option>
+              <option value="midsize">Mid-Size SUV / Mid-Size Truck</option>
+              <option value="fullsize">Full Size SUV/Truck</option>
+            </select>
+          </label>
+          <label>
+            Year, Make and Model
+            <input name="message" type="text">
+          </label>
+          <button class="primary-button" type="submit">Get a Quote</button>
           <p class="form-note" id="quoteFormNote" aria-live="polite"></p>
         </form>
       </section>
@@ -97,6 +103,6 @@
       </div>
     </footer>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="script.js?v=7"></script>
+    <script src="script.js?v=9"></script>
   </body>
 </html>

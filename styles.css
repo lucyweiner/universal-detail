@@ -388,7 +388,8 @@ h3 {
 }
 
 .section-heading {
-  max-width: 46rem;
+  width: 100%;
+  max-width: none;
   margin-bottom: 1.4rem;
 }
 
@@ -562,7 +563,7 @@ h3 {
 
 .about-section {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 34rem);
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 28rem);
   gap: clamp(1.5rem, 5vw, 4rem);
   align-items: center;
   background: rgba(10, 10, 10, 0.74);
@@ -573,8 +574,9 @@ h3 {
 }
 
 .page-section #about-title {
-  font-size: clamp(3rem, 5.1vw, 5.6rem);
-  white-space: nowrap;
+  max-width: 100%;
+  font-size: clamp(2.8rem, 4.6vw, 5rem);
+  white-space: normal;
 }
 
 .about-copy p:not(.eyebrow) {
@@ -584,7 +586,7 @@ h3 {
 
 .about-photo-grid {
   display: block;
-  width: min(100%, 34rem);
+  width: min(100%, 28rem);
   aspect-ratio: 1 / 1;
   justify-self: center;
 }
@@ -604,6 +606,14 @@ h3 {
   background:
     linear-gradient(135deg, rgba(226, 18, 18, 0.16), transparent 34rem),
     rgba(0, 0, 0, 0.5);
+}
+
+.why-section .section-heading {
+  max-width: none;
+}
+
+.why-section h2 {
+  white-space: nowrap;
 }
 
 .why-grid {
@@ -1121,12 +1131,21 @@ legend {
 }
 
 .about-book-section {
+  grid-template-columns: minmax(0, 1fr) auto;
   margin-top: clamp(1rem, 3vw, 2rem);
+}
+
+.about-book-section > div:first-child {
+  grid-column: 1 / -1;
 }
 
 .services-quote-section h2,
 .about-book-section h2 {
   margin-bottom: 0.55rem;
+}
+
+.about-book-section h2 {
+  max-width: none;
 }
 
 .services-quote-section p:not(.eyebrow),
@@ -1392,6 +1411,10 @@ footer {
 
   .page-section #about-title {
     font-size: clamp(1.8rem, 6vw, 2.15rem);
+  }
+
+  .why-section h2 {
+    white-space: normal;
   }
 
   .hero-actions,

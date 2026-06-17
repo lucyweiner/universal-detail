@@ -19,10 +19,32 @@ const timeZone = process.env.TIME_ZONE || "America/Phoenix";
 const appointmentDurationMinutes = Number(process.env.APPOINTMENT_DURATION_MINUTES || 270);
 const slotIntervalMinutes = Number(process.env.SLOT_INTERVAL_MINUTES || 30);
 const appointmentSummaryEmail = process.env.APPOINTMENT_SUMMARY_EMAIL || "Universaldetailservices@gmail.com";
+const quoteSummaryEmail = process.env.QUOTE_SUMMARY_EMAIL || appointmentSummaryEmail;
 const availabilityKeywords = (process.env.AVAILABILITY_KEYWORDS || "available for details,available,availability,open")
   .split(",")
   .map((keyword) => keyword.trim().toLowerCase())
   .filter(Boolean);
+
+const quotePrices = {
+  star: {
+    label: "Star Package",
+    car: 150,
+    midsize: 175,
+    fullsize: 215
+  },
+  galaxy: {
+    label: "Galaxy Package",
+    car: 250,
+    midsize: 285,
+    fullsize: 325
+  }
+};
+
+const vehicleTypeLabels = {
+  car: "Car/Sedan",
+  midsize: "Mid-Size SUV / Mid-Size Truck",
+  fullsize: "Full Size SUV/Truck"
+};
 
 app.use(express.json());
 app.use(express.static(__dirname));
@@ -95,6 +117,40 @@ const sendAppointmentSummaryEmail = async ({ slot, name, phone, email, service, 
     from: process.env.EMAIL_FROM || process.env.SMTP_USER,
     replyTo: email || undefined,
     subject: `New appointment: ${name} - ${formatAppointmentDateTime(slot.start)}`,
+    text: summaryLines.join("\n")
+  });
+};
+
+const getQuoteSelection = ({ service, vehicleType }) => {
+  const price = quotePrices[service]?.[vehicleType];
+
+  if (!price) return null;
+
+  return {
+    price,
+    serviceLabel: quotePrices[service].label,
+    vehicleTypeLabel: vehicleTypeLabels[vehicleType]
+  };
+};
+
+const sendQuoteSummaryEmail = async ({ name, phone, email, service, vehicleType, quote }) => {
+  const transporter = getMailTransporter();
+  const summaryLines = [
+    "New Universal Detail quote request",
+    "",
+    `Estimated Quote: $${quote.price}`,
+    `Service: ${quote.serviceLabel}`,
+    `Vehicle Size: ${quote.vehicleTypeLabel}`,
+    `Name: ${name}`,
+    `Phone: ${phone}`,
+    `Email: ${email}`
+  ];
+
+  await transporter.sendMail({
+    to: quoteSummaryEmail,
+    from: process.env.EMAIL_FROM || process.env.SMTP_USER,
+    replyTo: email || undefined,
+    subject: `New quote request: ${name} - $${quote.price}`,
     text: summaryLines.join("\n")
   });
 };
@@ -243,6 +299,45 @@ app.get("/api/availability", async (request, response) => {
   } catch (error) {
     response.status(error.status || 500).json({
       error: error.message || "Could not load availability."
+    });
+  }
+});
+
+app.post("/api/quote", async (request, response) => {
+  try {
+    const { name, phone, email, service, vehicleType } = request.body;
+    const quote = getQuoteSelection({ service, vehicleType });
+
+    if (!name || !phone || !email || !quote) {
+      response.status(400).json({ error: "Name, email, phone, service, and vehicle size are required." });
+      return;
+    }
+
+    let emailSent = true;
+    let emailWarning = null;
+
+    try {
+      await sendQuoteSummaryEmail({
+        name,
+        phone,
+        email,
+        quote
+      });
+    } catch (emailError) {
+      emailSent = false;
+      emailWarning = emailError.message || "Quote was calculated, but the email summary could not be sent.";
+      console.warn("Quote summary email failed:", emailWarning);
+    }
+
+    response.json({
+      ok: true,
+      quote,
+      emailSent,
+      emailWarning
+    });
+  } catch (error) {
+    response.status(error.status || 500).json({
+      error: error.message || "Could not send quote request."
     });
   }
 });

@@ -166,8 +166,9 @@ if (quoteForm) {
     if (quoteFormNote) quoteFormNote.textContent = "";
   });
 
-  quoteForm.addEventListener("submit", (event) => {
+  quoteForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const formData = new FormData(quoteForm);
     const quote = getQuoteSelection();
 
     if (!quote) {
@@ -175,8 +176,33 @@ if (quoteForm) {
       return;
     }
 
-    if (quoteFormNote) {
-      quoteFormNote.textContent = `Your estimated quote is $${quote.price} for the ${quote.serviceLabel} on a ${quote.vehicleTypeLabel}.`;
+    if (quoteFormNote) quoteFormNote.textContent = "Getting your quote...";
+
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          service: formData.get("service"),
+          vehicleType: formData.get("vehicleType")
+        })
+      });
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.error || "Could not send quote request.");
+
+      if (quoteFormNote) {
+        quoteFormNote.textContent = `Your estimated quote is $${data.quote.price} for the ${data.quote.serviceLabel} on a ${data.quote.vehicleTypeLabel}.`;
+      }
+    } catch (error) {
+      if (quoteFormNote) {
+        quoteFormNote.textContent = `Your estimated quote is $${quote.price} for the ${quote.serviceLabel} on a ${quote.vehicleTypeLabel}.`;
+      }
     }
   });
 }

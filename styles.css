@@ -1201,6 +1201,43 @@ legend {
   padding: 1.2rem;
 }
 
+.home-reviews-section .reviews-layout {
+  grid-template-columns: 1fr;
+}
+
+.home-reviews-section .review-form {
+  grid-template-columns: minmax(11rem, 0.8fr) minmax(9rem, 0.55fr) minmax(18rem, 1.4fr) minmax(11rem, 0.8fr) auto;
+  align-items: end;
+  gap: 0.8rem;
+}
+
+.home-reviews-section .review-form label {
+  min-width: 0;
+}
+
+.home-reviews-section .review-form textarea {
+  min-height: 3.3rem;
+  max-height: 3.3rem;
+}
+
+.home-reviews-section .review-form input,
+.home-reviews-section .review-form select,
+.home-reviews-section .review-form textarea {
+  min-height: 3.3rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.home-reviews-section .review-form .primary-button {
+  align-self: end;
+  min-height: 3.3rem;
+  padding: 0.7rem 1rem;
+  white-space: nowrap;
+}
+
+.home-reviews-section .reviews-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 label {
   display: grid;
   gap: 0.45rem;
@@ -1370,6 +1407,11 @@ footer {
   .contact-info,
   .booking-copy {
     position: static;
+  }
+
+  .home-reviews-section .review-form,
+  .home-reviews-section .reviews-list {
+    grid-template-columns: 1fr;
   }
 
   .hero {

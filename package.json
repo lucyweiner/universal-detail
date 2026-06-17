@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "deploy": "gcloud run deploy universal-detail --source . --region us-west1 --project project-8f87b8ab-b91f-47a4-b51 --allow-unauthenticated",
+    "ship": "git push origin master && npm run deploy"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

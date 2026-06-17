@@ -429,7 +429,8 @@ if (bookingRequestForm) {
           phone: formData.get("phone"),
           email: formData.get("email"),
           service: formData.get("service"),
-          vehicle: formData.get("vehicle")
+          vehicle: formData.get("vehicle"),
+          location: formData.get("location")
         })
       });
       const data = await response.json();

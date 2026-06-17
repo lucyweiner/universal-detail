@@ -97,7 +97,7 @@ const getMailTransporter = () => {
   });
 };
 
-const sendAppointmentSummaryEmail = async ({ slot, name, phone, email, service, vehicle }) => {
+const sendAppointmentSummaryEmail = async ({ slot, name, phone, email, service, vehicle, location }) => {
   const transporter = getMailTransporter();
   const start = formatAppointmentDateTime(slot.start);
   const end = formatAppointmentDateTime(slot.end);
@@ -109,7 +109,8 @@ const sendAppointmentSummaryEmail = async ({ slot, name, phone, email, service, 
     `Phone: ${phone}`,
     email ? `Email: ${email}` : "",
     service ? `Service: ${service}` : "",
-    vehicle ? `Vehicle: ${vehicle}` : ""
+    vehicle ? `Vehicle: ${vehicle}` : "",
+    location ? `Location: ${location}` : ""
   ].filter(Boolean);
 
   await transporter.sendMail({
@@ -344,10 +345,10 @@ app.post("/api/quote", async (request, response) => {
 
 app.post("/api/book", async (request, response) => {
   try {
-    const { slotStart, name, phone, email, service, vehicle } = request.body;
+    const { slotStart, name, phone, email, service, vehicle, location } = request.body;
 
-    if (!slotStart || !name || !phone) {
-      response.status(400).json({ error: "Name, phone, and appointment time are required." });
+    if (!slotStart || !name || !phone || !location) {
+      response.status(400).json({ error: "Name, phone, location, and appointment time are required." });
       return;
     }
 
@@ -371,10 +372,12 @@ app.post("/api/book", async (request, response) => {
           `Phone: ${phone}`,
           email ? `Email: ${email}` : "",
           service ? `Service: ${service}` : "",
-          vehicle ? `Vehicle: ${vehicle}` : ""
+          vehicle ? `Vehicle: ${vehicle}` : "",
+          location ? `Location: ${location}` : ""
         ]
           .filter(Boolean)
           .join("\n"),
+        location,
         start: {
           dateTime: selectedSlot.start,
           timeZone
@@ -396,7 +399,8 @@ app.post("/api/book", async (request, response) => {
         phone,
         email,
         service,
-        vehicle
+        vehicle,
+        location
       });
     } catch (emailError) {
       emailSent = false;

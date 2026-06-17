@@ -9,6 +9,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "googleapis": "^144.0.0",
-    "node-ical": "^0.26.1"
+    "node-ical": "^0.26.1",
+    "nodemailer": "^9.0.0"
   }
 }

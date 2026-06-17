@@ -4,6 +4,7 @@ const path = require("path");
 const express = require("express");
 const { google } = require("googleapis");
 const ical = require("node-ical");
+const nodemailer = require("nodemailer");
 
 const app = express();
 const port = Number(process.env.PORT || 8080);
@@ -17,6 +18,7 @@ const calendarFeedUrl =
 const timeZone = process.env.TIME_ZONE || "America/Phoenix";
 const appointmentDurationMinutes = Number(process.env.APPOINTMENT_DURATION_MINUTES || 270);
 const slotIntervalMinutes = Number(process.env.SLOT_INTERVAL_MINUTES || 30);
+const appointmentSummaryEmail = process.env.APPOINTMENT_SUMMARY_EMAIL || "Universaldetailservices@gmail.com";
 const availabilityKeywords = (process.env.AVAILABILITY_KEYWORDS || "available for details,available,availability,open")
   .split(",")
   .map((keyword) => keyword.trim().toLowerCase())
@@ -29,6 +31,18 @@ const addMinutes = (date, minutes) => new Date(date.getTime() + minutes * 60000)
 
 const rangesOverlap = (startA, endA, startB, endB) => startA < endB && startB < endA;
 
+const formatAppointmentDateTime = (dateValue) =>
+  new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone,
+    timeZoneName: "short"
+  }).format(new Date(dateValue));
+
 const getEventStart = (event) => event.start?.dateTime || event.start?.date;
 const getEventEnd = (event) => event.end?.dateTime || event.end?.date;
 
@@ -40,6 +54,50 @@ const isAvailabilityEvent = (event) => {
 const hasGoogleCredentials = () =>
   Boolean(process.env.GOOGLE_APPLICATION_CREDENTIALS) ||
   Boolean(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY);
+
+const hasEmailCredentials = () => Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+
+const getMailTransporter = () => {
+  if (!hasEmailCredentials()) {
+    const error = new Error("Email credentials are not configured.");
+    error.status = 503;
+    throw error;
+  }
+
+  return nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT || 587),
+    secure: process.env.SMTP_SECURE === "true" || Number(process.env.SMTP_PORT) === 465,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+};
+
+const sendAppointmentSummaryEmail = async ({ slot, name, phone, email, service, vehicle }) => {
+  const transporter = getMailTransporter();
+  const start = formatAppointmentDateTime(slot.start);
+  const end = formatAppointmentDateTime(slot.end);
+  const summaryLines = [
+    "New Universal Detail appointment",
+    "",
+    `Appointment: ${start} - ${end}`,
+    `Name: ${name}`,
+    `Phone: ${phone}`,
+    email ? `Email: ${email}` : "",
+    service ? `Service: ${service}` : "",
+    vehicle ? `Vehicle: ${vehicle}` : ""
+  ].filter(Boolean);
+
+  await transporter.sendMail({
+    to: appointmentSummaryEmail,
+    from: process.env.EMAIL_FROM || process.env.SMTP_USER,
+    replyTo: email || undefined,
+    subject: `New appointment: ${name} - ${formatAppointmentDateTime(slot.start)}`,
+    text: summaryLines.join("\n")
+  });
+};
 
 const getCalendarClient = async () => {
   if (!hasGoogleCredentials()) {
@@ -233,11 +291,31 @@ app.post("/api/book", async (request, response) => {
       }
     });
 
+    let emailSent = true;
+    let emailWarning = null;
+
+    try {
+      await sendAppointmentSummaryEmail({
+        slot: selectedSlot,
+        name,
+        phone,
+        email,
+        service,
+        vehicle
+      });
+    } catch (emailError) {
+      emailSent = false;
+      emailWarning = emailError.message || "Appointment was booked, but the email summary could not be sent.";
+      console.warn("Appointment summary email failed:", emailWarning);
+    }
+
     response.json({
       ok: true,
       eventId: calendarEvent.data.id,
       start: selectedSlot.start,
-      end: selectedSlot.end
+      end: selectedSlot.end,
+      emailSent,
+      emailWarning
     });
   } catch (error) {
     response.status(error.status || 500).json({

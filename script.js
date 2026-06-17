@@ -301,12 +301,11 @@ const renderBookingCalendar = () => {
               ? selectedSlots
                   .map((slot) => {
                     const start = new Date(slot.start);
-                    const end = new Date(slot.end);
                     const isSelected = bookingRequestForm?.elements.slotStart.value === slot.start;
                     return `
                       <button class="time-card${isSelected ? " selected" : ""}" type="button" data-slot-start="${slot.start}">
                         <i data-lucide="calendar-clock" aria-hidden="true"></i>
-                        <span>${formatSlotTime(start)} - ${formatSlotTime(end)} MST</span>
+                        <span>${formatSlotTime(start)} MST</span>
                         <strong>Available</strong>
                       </button>
                     `;

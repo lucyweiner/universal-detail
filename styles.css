@@ -580,20 +580,26 @@ h3 {
 
 .about-section {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 28rem);
-  gap: clamp(1.5rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 24rem);
+  gap: clamp(1.2rem, 3vw, 2.6rem) clamp(1.5rem, 5vw, 4rem);
   align-items: center;
   background: rgba(10, 10, 10, 0.74);
 }
 
+.about-section > #about-title {
+  grid-column: 1 / -1;
+  max-width: none;
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
 .about-copy {
-  max-width: 62rem;
+  max-width: 60rem;
 }
 
 .page-section #about-title {
   max-width: 100%;
   font-size: clamp(2.8rem, 4.6vw, 5rem);
-  white-space: normal;
 }
 
 .about-copy p:not(.eyebrow) {
@@ -603,7 +609,7 @@ h3 {
 
 .about-photo-grid {
   display: block;
-  width: min(100%, 28rem);
+  width: min(100%, 24rem);
   aspect-ratio: 1 / 1;
   justify-self: center;
 }
@@ -1430,6 +1436,10 @@ footer {
   .contact-info,
   .booking-copy {
     position: static;
+  }
+
+  .about-section > #about-title {
+    white-space: normal;
   }
 
   .home-reviews-section .review-form,

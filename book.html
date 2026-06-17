@@ -6,7 +6,7 @@
     <meta name="description" content="Book a Universal Detail mobile car detailing appointment in Chandler and the East Valley.">
     <title>Book an Appointment | Universal Detail</title>
     <link rel="preload" href="assets/universal-detail-logo-transparent.png" as="image">
-    <link rel="stylesheet" href="styles.css?v=21">
+    <link rel="stylesheet" href="styles.css?v=22">
   </head>
   <body>
     <header class="site-header">
@@ -44,12 +44,13 @@
                 <input name="email" type="email" autocomplete="email" placeholder="Email">
               </label>
               <label>
-                <span>Package</span>
-              <select name="service">
-                <option value="The Star Package">The Star Package</option>
-                <option value="The Galaxy Package">The Galaxy Package</option>
-                <option value="Not Sure Yet">Not Sure Yet</option>
-              </select>
+                <span>Service</span>
+                <select name="service" required>
+                  <option value="" selected disabled>Service</option>
+                  <option value="The Star Package">The Star Package</option>
+                  <option value="The Galaxy Package">The Galaxy Package</option>
+                  <option value="Not Sure Yet">Not Sure Yet</option>
+                </select>
               </label>
               <label>
                 <span>Phone</span>
@@ -106,6 +107,6 @@
       </div>
     </footer>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="script.js?v=21"></script>
+    <script src="script.js?v=22"></script>
   </body>
 </html>

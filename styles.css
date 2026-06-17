@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap");
+
 :root {
   --black: #070707;
   --panel: #111111;
@@ -8,7 +10,7 @@
   --white: #ffffff;
   --muted: #a8a8a8;
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
-  --font-main: "Serpentine Bold Oblique", "Serpentine-BoldOblique", "Serpentine", "Arial Black", Impact, ui-sans-serif, system-ui, sans-serif;
+  --font-main: "Lato", ui-sans-serif, system-ui, sans-serif;
 }
 
 * {

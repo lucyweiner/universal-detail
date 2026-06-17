@@ -1293,6 +1293,13 @@ footer {
   background: var(--black);
 }
 
+.footer-wordmark {
+  width: clamp(10rem, 16vw, 15rem);
+  height: 2.4rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .footer-links {
   display: flex;
   align-items: center;

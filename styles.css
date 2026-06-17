@@ -689,6 +689,10 @@ h3 {
     rgba(0, 0, 0, 0.44);
 }
 
+.quote-contact-section {
+  margin-bottom: clamp(2.25rem, 5vw, 4.5rem);
+}
+
 .booking-page-main {
   color: var(--white);
   background:

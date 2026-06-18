@@ -1329,6 +1329,16 @@ input[type="file"]::file-selector-button {
   font-size: 1.05rem;
 }
 
+.review-author {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.review-author time {
+  color: var(--silver);
+  font-size: 0.78rem;
+}
+
 .review-photo {
   width: 100%;
   max-height: 18rem;

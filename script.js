@@ -1,19 +1,8 @@
 const phoneNumber = "(480) 364-9446";
-const reviewsStorageKey = "universalDetailReviews_v4";
+const reviewsStorageKey = "universalDetailReviews_v6";
 const phoneHtml = `<span>Call or text for a quote</span><strong>${phoneNumber}</strong>`;
 const appointmentLength = "4.5 hours";
-const starterReviews = [
-  {
-    name: "Ari",
-    rating: 5,
-    review: "Super clean interior and the outside looked brand new. Easy to schedule and quick to respond."
-  },
-  {
-    name: "Marcus",
-    rating: 5,
-    review: "Great attention to detail. Wheels, glass, seats, everything came out sharp."
-  }
-];
+const starterReviews = [];
 
 const reviewForm = document.querySelector("#reviewForm");
 const reviewsList = document.querySelector("#reviewsList");
@@ -35,6 +24,15 @@ const getReviews = () => {
 
 const saveReviews = (reviews) => {
   localStorage.setItem(reviewsStorageKey, JSON.stringify(reviews));
+};
+
+const formatReviewDate = (dateValue) => {
+  const date = dateValue ? new Date(dateValue) : new Date();
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
 };
 
 const quotePrices = {
@@ -103,7 +101,7 @@ const renderReviews = () => {
   const reviews = getReviews();
 
   if (!reviews.length) {
-    reviewsList.innerHTML = `<div class="empty-reviews">No reviews yet. Be the first to post one.</div>`;
+    reviewsList.innerHTML = "";
     return;
   }
 
@@ -113,7 +111,10 @@ const renderReviews = () => {
       return `
         <article class="review-card">
           <header>
-            <strong>${escapeHtml(item.name)}</strong>
+            <div class="review-author">
+              <strong>${escapeHtml(item.name)}</strong>
+              <time datetime="${escapeHtml(item.date || new Date().toISOString())}">${escapeHtml(formatReviewDate(item.date))}</time>
+            </div>
             <span class="stars" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}${"☆".repeat(5 - rating)}</span>
           </header>
           <p>${escapeHtml(item.review)}</p>
@@ -147,6 +148,7 @@ if (reviewForm) {
       name: formData.get("name").trim(),
       rating: Number(formData.get("rating")),
       review: formData.get("review").trim(),
+      date: new Date().toISOString(),
       photo: await readPhotoFile(photoFile)
     };
 

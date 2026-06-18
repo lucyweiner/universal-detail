@@ -197,11 +197,13 @@ if (quoteForm) {
       if (!response.ok) throw new Error(data.error || "Could not send quote request.");
 
       if (quoteFormNote) {
-        quoteFormNote.textContent = `Your estimated quote is $${data.quote.price} for the ${data.quote.serviceLabel} on a ${data.quote.vehicleTypeLabel}.`;
+        quoteFormNote.textContent = data.emailSent
+          ? `Your quote request was sent. Your estimated quote is $${data.quote.price} for the ${data.quote.serviceLabel} on a ${data.quote.vehicleTypeLabel}.`
+          : `Your estimated quote is $${data.quote.price} for the ${data.quote.serviceLabel} on a ${data.quote.vehicleTypeLabel}. Please call to book.`;
       }
     } catch (error) {
       if (quoteFormNote) {
-        quoteFormNote.textContent = `Your estimated quote is $${quote.price} for the ${quote.serviceLabel} on a ${quote.vehicleTypeLabel}.`;
+        quoteFormNote.textContent = `We could not send your quote request by email. Your estimated quote is $${quote.price} for the ${quote.serviceLabel} on a ${quote.vehicleTypeLabel}. Please call to book.`;
       }
     }
   });

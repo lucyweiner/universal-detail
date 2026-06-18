@@ -18,8 +18,13 @@ const calendarFeedUrl =
 const timeZone = process.env.TIME_ZONE || "America/Phoenix";
 const appointmentDurationMinutes = Number(process.env.APPOINTMENT_DURATION_MINUTES || 270);
 const slotIntervalMinutes = Number(process.env.SLOT_INTERVAL_MINUTES || 30);
-const appointmentSummaryEmail = process.env.APPOINTMENT_SUMMARY_EMAIL || "Universaldetailservices@gmail.com";
-const quoteSummaryEmail = process.env.QUOTE_SUMMARY_EMAIL || appointmentSummaryEmail;
+const defaultEmailAddress = "Universaldetailservices@gmail.com";
+const appointmentSummaryEmail = process.env.APPOINTMENT_SUMMARY_EMAIL || defaultEmailAddress;
+const quoteSummaryEmail = process.env.QUOTE_SUMMARY_EMAIL || defaultEmailAddress;
+const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
+const smtpPort = Number(process.env.SMTP_PORT || 465);
+const smtpUser = process.env.SMTP_USER || defaultEmailAddress;
+const emailFrom = process.env.EMAIL_FROM || smtpUser;
 const availabilityKeywords = (process.env.AVAILABILITY_KEYWORDS || "available for details,available,availability,open")
   .split(",")
   .map((keyword) => keyword.trim().toLowerCase())
@@ -77,21 +82,21 @@ const hasGoogleCredentials = () =>
   Boolean(process.env.GOOGLE_APPLICATION_CREDENTIALS) ||
   Boolean(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY);
 
-const hasEmailCredentials = () => Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+const hasEmailCredentials = () => Boolean(process.env.SMTP_PASS);
 
 const getMailTransporter = () => {
   if (!hasEmailCredentials()) {
-    const error = new Error("Email credentials are not configured.");
+    const error = new Error("Gmail app password is not configured. Set SMTP_PASS to send quote emails.");
     error.status = 503;
     throw error;
   }
 
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: process.env.SMTP_SECURE === "true" || Number(process.env.SMTP_PORT) === 465,
+    host: smtpHost,
+    port: smtpPort,
+    secure: process.env.SMTP_SECURE === "true" || smtpPort === 465,
     auth: {
-      user: process.env.SMTP_USER,
+      user: smtpUser,
       pass: process.env.SMTP_PASS
     }
   });
@@ -115,7 +120,7 @@ const sendAppointmentSummaryEmail = async ({ slot, name, phone, email, service, 
 
   await transporter.sendMail({
     to: appointmentSummaryEmail,
-    from: process.env.EMAIL_FROM || process.env.SMTP_USER,
+    from: emailFrom,
     replyTo: email || undefined,
     subject: `New appointment: ${name} - ${formatAppointmentDateTime(slot.start)}`,
     text: summaryLines.join("\n")
@@ -139,17 +144,24 @@ const sendQuoteSummaryEmail = async ({ name, phone, email, service, vehicleType,
   const summaryLines = [
     "New Universal Detail quote request",
     "",
-    `Estimated Quote: $${quote.price}`,
+    "Customer Information",
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone}`,
+    "",
+    "Quote Details",
+    `Submitted Service Value: ${service}`,
+    `Submitted Vehicle Size Value: ${vehicleType}`,
     `Service: ${quote.serviceLabel}`,
     `Vehicle Size: ${quote.vehicleTypeLabel}`,
-    `Name: ${name}`,
-    `Phone: ${phone}`,
-    `Email: ${email}`
+    `Estimated Quote: $${quote.price}`,
+    "",
+    `Submitted At: ${new Date().toLocaleString("en-US", { timeZone, timeZoneName: "short" })}`
   ];
 
   await transporter.sendMail({
     to: quoteSummaryEmail,
-    from: process.env.EMAIL_FROM || process.env.SMTP_USER,
+    from: emailFrom,
     replyTo: email || undefined,
     subject: `New quote request: ${name} - $${quote.price}`,
     text: summaryLines.join("\n")
@@ -314,27 +326,30 @@ app.post("/api/quote", async (request, response) => {
       return;
     }
 
-    let emailSent = true;
-    let emailWarning = null;
-
     try {
       await sendQuoteSummaryEmail({
         name,
         phone,
         email,
+        service,
+        vehicleType,
         quote
       });
     } catch (emailError) {
-      emailSent = false;
-      emailWarning = emailError.message || "Quote was calculated, but the email summary could not be sent.";
+      const emailWarning = emailError.message || "Quote was calculated, but the email summary could not be sent.";
       console.warn("Quote summary email failed:", emailWarning);
+      response.status(emailError.status || 502).json({
+        error: emailWarning,
+        quote,
+        emailSent: false
+      });
+      return;
     }
 
     response.json({
       ok: true,
       quote,
-      emailSent,
-      emailWarning
+      emailSent: true
     });
   } catch (error) {
     response.status(error.status || 500).json({
